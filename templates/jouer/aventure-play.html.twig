@@ -16,7 +16,7 @@
       <div class="card col flex-grow-1">
         <div class="card-body text-center">
           <p class="card-text">{{ alternative.getTexteAmbiance }}</p>
-          <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': alternative.getEtapeSuivante.id}) }}" class="btn btn-primary">Poursuivre l'aventure</a>
+          <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': alternative.getEtapeSuivante.id}) }}" class="btn btn-primary">{{ alternative.getLibelle }} </a>
         </div>
       </div>
 
