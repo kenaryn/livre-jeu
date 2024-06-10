@@ -17,16 +17,16 @@ class EtapeType extends AbstractType
             ->add('texte_ambiance')
             ->add('libelle')
             ->add('aventureDebutee', EntityType::class, [
-                'class' => Aventure::class,
-                'choice_label' => 'id',
+                'class' => Aventure::class,'required'=>false,
+                'choice_label' => 'titre',
             ])
             ->add('aventure', EntityType::class, [
                 'class' => Aventure::class,
-                'choice_label' => 'id',
+                'choice_label' => 'titre',
             ])
             ->add('finAventure', EntityType::class, [
-                'class' => Aventure::class,
-                'choice_label' => 'id',
+                'class' => Aventure::class,'required'=>false,
+                'choice_label' => 'titre',
             ])
         ;
     }

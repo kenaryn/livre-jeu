@@ -1,0 +1,15 @@
+{% extends 'base.html.twig' %}
+{% block title %}Vivre une étape{% endblock %}
+{% block body %}
+
+<p>{{ partie.etape.textAmbiance }}</p>
+
+{% for alternative in partie.etape.alternatives %}
+  <div class="card text-center">
+    <p>{{ alternative.textAmbiance }}</p>
+    <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': partie.etape.id}) }}" class="btn btn-primary">Poursuivre l'aventure</a>
+  </div>
+  
+{% endfor %}
+
+{% endblock %}
