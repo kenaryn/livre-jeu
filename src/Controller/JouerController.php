@@ -27,13 +27,14 @@ class JouerController extends AbstractController
     }
 
     #[Route('/jouer/new', name: 'app_jouer_new')]
-    public function newPersonnage(Request $request,PersonnageRepository $personnageRepository): Response
+    public function newPersonnage(Request $request, EntityManagerInterface $entityManager): Response
     {
         $personnage = new Personnage();
         $form = $this->createForm(PersonnageType::class, $personnage);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
-            $personnageRepository->save($personnage, true);
+            $entityManager->persist($personnage);
+            $entityManager->flush();
             return $this->redirectToRoute('app_jouer', [], Response::HTTP_SEE_OTHER);
         }
         return $this->render('jouer/new_personnage.html.twig', ['form' => $form, 'personnage' => $personnage]);

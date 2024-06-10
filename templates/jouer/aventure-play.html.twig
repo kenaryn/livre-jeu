@@ -2,14 +2,26 @@
 {% block title %}Vivre une étape{% endblock %}
 {% block body %}
 
-<p>{{ partie.etape.getTexteAmbiance }}</p>
 
-{% for alternative in partie.etape.alternatives %}
-  <div class="card text-center">
-    <p>{{ alternative.getTexteAmbiance }}</p>
-    <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': alternative.getEtapeSuivante.id}) }}" class="btn btn-primary">Poursuivre l'aventure</a>
+
+
+<div class="container-fluid">
+<div class="row">
+<div class="card col text-center mb-4">
+  <p class="card-text">{{ partie.etape.getTexteAmbiance }}</p>
+</div>
+</div>
+  <div class="row gap-3">
+    {% for alternative in partie.etape.alternatives %}
+      <div class="card col flex-grow-1">
+        <div class="card-body text-center">
+          <p class="card-text">{{ alternative.getTexteAmbiance }}</p>
+          <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': alternative.getEtapeSuivante.id}) }}" class="btn btn-primary">Poursuivre l'aventure</a>
+        </div>
+      </div>
+
+    {% endfor %}
   </div>
-  
-{% endfor %}
+</div>
 
 {% endblock %}
