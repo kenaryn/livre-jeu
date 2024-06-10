@@ -52,8 +52,7 @@ class JouerController extends AbstractController
     {
         $personnage = $personnageRepository->find($idPersonnage);
         $aventure = $aventureRepository->find($idAventure);
-        return $this->render('jouer/aventure-start.html.twig', ['personnage' => $personnage, 'aventure' => $aventure]);
-
+        
         $partie = $partieRepository->findOneBy(array('aventurier' => $personnage, 'aventure' => $aventure));
         $isNewPartie = !isset($partie);
 
@@ -61,21 +60,24 @@ class JouerController extends AbstractController
             $partie = new Partie();
             $partie->setAventurier($personnage);
             $partie->setAventure($aventure);
-            $partie->setEtape($aventure->getPremiereEtape);
+            $partie->setEtape($aventure->getPremiereEtape());
             $partie->setDatePartie(new \DateTime('now'));
             // $partieRepository->save($partie, true);
             $entityManager->persist($partie);
             $entityManager->flush();
         }
+
+        return $this->render('jouer/aventure-start.html.twig', ['personnage' => $personnage, 'aventure' => $aventure,'partie'=>$partie]);
+
     }
 
-    #[Route('/jouer/etape/{idPartie}/${idEtape}', name: 'app_play_aventure', methods: ['GET'])]
+    #[Route('/jouer/etape/{idPartie}/{idEtape}', name: 'app_play_aventure', methods: ['GET'])]
     public function jouerPartie($idPartie, $idEtape, PartieRepository $partieRepository, EtapeRepository $etapeRepository): Response
     {
         $partie = $partieRepository->find($idPartie);
         $etape = $etapeRepository->find($idEtape);
 
-        $templatePath = $etape->getFinAventure() != null ? 'jouer/aventure-play.html.twig' : 'jouer/aventure-end.html.twig';
+        $templatePath = $etape->getFinAventure() == null ? 'aventure-play.html.twig' : 'aventure-end.html.twig';
         return $this->render('jouer/' . $templatePath, ['partie' => $partie]);
     }
 }

@@ -1,0 +1,12 @@
+{% extends 'base.html.twig' %}
+{% block title %}Démarrer une aventure{% endblock %}
+{% block body %}
+
+<div class="card text-center">
+  <div class="card-body">
+    <p class="card-text">{{ partie.etape.getTexteAmbiance}}</p>
+    <a href="{{ path('app_jouer') }}">Rejouer une partie</a>
+  </div>
+</div>
+
+{% endblock %}

@@ -18,11 +18,11 @@ class AlternativeType extends AbstractType
             ->add('libelle')
             ->add('etapePrecedente', EntityType::class, [
                 'class' => Etape::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle',
             ])
             ->add('etapeSuivante', EntityType::class, [
                 'class' => Etape::class,
-                'choice_label' => 'id',
+                'choice_label' => 'libelle',
             ])
         ;
     }

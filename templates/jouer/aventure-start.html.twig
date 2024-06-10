@@ -2,6 +2,8 @@
 {% block title %}Démarrer une aventure{% endblock %}
 {% block body %}
 
-<p>Lucette démarre l'aventure "Le tombeau des renégats!"</p>
+<div class="card text-center">
+  <a href="{{ path('app_play_aventure', {'idPartie': partie.id, 'idEtape': partie.etape.id}) }}" class="btn btn-primary">Lancer l'aventure</a>
+</div>
 
 {% endblock %}
