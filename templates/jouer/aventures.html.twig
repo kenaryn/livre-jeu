@@ -1,0 +1,29 @@
+{%  extends 'base.html.twig' %}
+{% block title %}Jouer une aventure{% endblock %}
+{% block body %}
+
+<div class="container-fluid">
+  <div class="row"> 
+        <div class="card text-center col">
+          <img class="card-img-top" src="{{ asset('images/avatars/'~personnage.avatar.  getNomFichier) }}" alt="{{ personnage.avatar.getNomFichier }}">
+            <div class="card-body">
+             <a href="#" class="btn btn-primary">{{ personnage.prenom }} {{ personnage.nom }}</a>
+          </div>
+        </div>
+ 
+    {% for aventure in aventures %}
+      <div class="card text-center col">
+        <div class="card-body">
+          <h5 class="card-title">{{ aventure.titre }}</h5>
+          <p class="card-text">{{ aventure.description }}</p>
+          <a href="#" class="btn btn-primary">Jouer</a></li>
+        </div>
+    </div>
+    {% else %}
+      <p>Aucune aventure.</p>
+    {% endfor %}
+   </div>
+
+  </div>
+</div>
+{% endblock %}

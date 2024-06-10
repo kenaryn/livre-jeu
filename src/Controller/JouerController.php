@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Personnage;
 use App\Repository\PersonnageRepository;
 use App\Form\PersonnageType;
+use App\Repository\AventureRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -34,9 +35,11 @@ class JouerController extends AbstractController
         return $this->render('jouer/new_personnage.html.twig', ['form' => $form, 'personnage' => $personnage]);
     }
 
-    #[Route('/jouer/aventure/{idPersonnage}', name: 'app_choix_aventure')]
-    public function afficherAventures(PersonnageRepository $personnageRepository, int $idPersonnage): Response
+    #[Route('/jouer/aventure/{idPersonnage}', name: 'app_choix_aventure', methods: ['GET'])]
+    public function afficherAventures(PersonnageRepository $personnageRepository, int $idPersonnage, AventureRepository $aventureRepository): Response
     {
-        # TODO!!
+        $personnage = $personnageRepository->find($idPersonnage);
+        $aventures = $aventureRepository->findAll();
+        return $this->render('jouer/aventures.html.twig', ['personnage' => $personnage, 'aventures' => $aventures]);
     }
 }

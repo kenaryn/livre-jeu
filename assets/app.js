@@ -13,6 +13,7 @@ import "./bootstrap";
 //     $('[data-bs-toggle="popover"]').popover();
 //   })
 // );
+jQuery.noConflict();
 $(document).ready(function(){
   $('[data-toggle="popover"]').popover();
 });
