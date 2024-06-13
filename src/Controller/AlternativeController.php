@@ -17,6 +17,8 @@ class AlternativeController extends AbstractController
     #[Route('/', name: 'app_alternative_index', methods: ['GET'])]
     public function index(AlternativeRepository $alternativeRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+        
         return $this->render('alternative/index.html.twig', [
             'alternatives' => $alternativeRepository->findAll(),
         ]);

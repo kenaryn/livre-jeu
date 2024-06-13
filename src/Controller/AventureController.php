@@ -17,6 +17,8 @@ class AventureController extends AbstractController
     #[Route('/', name: 'app_aventure_index', methods: ['GET'])]
     public function index(AventureRepository $aventureRepository): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+        
         return $this->render('aventure/index.html.twig', [
             'aventures' => $aventureRepository->findAll(),
         ]);

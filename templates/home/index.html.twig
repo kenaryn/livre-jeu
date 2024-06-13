@@ -19,10 +19,12 @@
 
     {% endif %}
 
-    <div class="row">
-        <div class="col d-flex align-items-center justify-content-center">
-            <a class="link-secondary btn btn-primary btn-lg w-75 m-1 pl-5 pr-5 fs-1" href="{{ path('app_admin') }}">Gérer</a>
-        </div>
+    {% if (is_granted('ROLE_ADMIN')) %}
+        <div class="row">
+            <div class="col d-flex align-items-center justify-content-center">
+                <a class="link-secondary btn btn-primary btn-lg w-75 m-1 pl-5 pr-5 fs-1" href="{{ path('app_admin') }}">Administrer</a>
+            </div>
+    {% endif %}
 
         <div class="row">
             <div class="col d-flex align-items-center justify-content-center">
