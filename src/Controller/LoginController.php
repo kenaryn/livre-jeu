@@ -6,6 +6,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use Symfony\Bundle\SecurityBundle\Security;
 
 class LoginController extends AbstractController
 {
@@ -22,5 +23,15 @@ class LoginController extends AbstractController
             'last_username' => $lastUserName,
             'error' => $error,
         ]);
+    }
+
+    #[Route('/logout', name: 'app_logout')]
+    public function logOut(Security $security): Response
+    {
+        /**
+         * Log out the user on current firewall.
+         *  */ 
+        $response = $security->logout();
+        return $this->redirectToRoute('app_home', [], Response::HTTP_SEE_OTHER);
     }
 }
