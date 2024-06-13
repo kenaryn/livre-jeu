@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/partie')]
+#[Route('/admin/partie')]
 class PartieController extends AbstractController
 {
     #[Route('/', name: 'app_partie_index', methods: ['GET'])]

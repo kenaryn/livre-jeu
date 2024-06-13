@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/avatar')]
+#[Route('/admin/avatar')]
 class AvatarController extends AbstractController
 {
     #[Route('/', name: 'app_avatar_index', methods: ['GET'])]

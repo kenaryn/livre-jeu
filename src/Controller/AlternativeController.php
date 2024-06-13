@@ -11,7 +11,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-#[Route('/alternative')]
+#[Route('/admin/alternative')]
 class AlternativeController extends AbstractController
 {
     #[Route('/', name: 'app_alternative_index', methods: ['GET'])]
@@ -21,12 +21,14 @@ class AlternativeController extends AbstractController
         
         return $this->render('alternative/index.html.twig', [
             'alternatives' => $alternativeRepository->findAll(),
-        ]);
-    }
-
+            ]);
+            }
+            
     #[Route('/new', name: 'app_alternative_new', methods: ['GET', 'POST'])]
     public function new(Request $request, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+
         $alternative = new Alternative();
         $form = $this->createForm(AlternativeType::class, $alternative);
         $form->handleRequest($request);
@@ -47,6 +49,8 @@ class AlternativeController extends AbstractController
     #[Route('/{id}', name: 'app_alternative_show', methods: ['GET'])]
     public function show(Alternative $alternative): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+
         return $this->render('alternative/show.html.twig', [
             'alternative' => $alternative,
         ]);
@@ -55,6 +59,8 @@ class AlternativeController extends AbstractController
     #[Route('/{id}/edit', name: 'app_alternative_edit', methods: ['GET', 'POST'])]
     public function edit(Request $request, Alternative $alternative, EntityManagerInterface $entityManager): Response
     {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+
         $form = $this->createForm(AlternativeType::class, $alternative);
         $form->handleRequest($request);
 
@@ -73,7 +79,9 @@ class AlternativeController extends AbstractController
     #[Route('/{id}', name: 'app_alternative_delete', methods: ['POST'])]
     public function delete(Request $request, Alternative $alternative, EntityManagerInterface $entityManager): Response
     {
-        if ($this->isCsrfTokenValid('delete'.$alternative->getId(), $request->getPayload()->get('_token'))) {
+        $this->denyAccessUnlessGranted('ROLE_ADMIN', null, 'Access denied due to not having admin privileges.');
+        
+        if ($this->isCsrfTokenValid('delete' . $alternative->getId(), $request->getPayload()->get('_token'))) {
             $entityManager->remove($alternative);
             $entityManager->flush();
         }
